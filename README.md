@@ -9,3 +9,7 @@ libraryDependencies += "scalajs-jest" %%% "core" % "replaceThisWithLatestVersion
 ```
 
 Example : Check this project tests :) 
+
+### Community
+
+If you have any questions regarding scalajs-jest ,open a thread [here](https://github.com/scalajs-jest/discuss/issues)
