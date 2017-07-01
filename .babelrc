@@ -1,0 +1,4 @@
+{
+  "presets": [],
+  "ignore": ["sjs.test.js"]
+}
