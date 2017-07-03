@@ -22,7 +22,7 @@ scalacOptions ++= Seq(
 //deps
 
 libraryDependencies ++= Seq(
-  "org.scala-lang" % "scala-reflect" % scalaVersion.value % Provided)
+  "org.scala-lang" % "scala-reflect" % scalaVersion.value)
 
 resolvers in Global += Resolver.bintrayRepo("scalacenter",
                                             "sbt-maven-releases")
