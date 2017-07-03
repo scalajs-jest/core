@@ -2,6 +2,7 @@ package scalajsjest
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobal, JSGlobalScope, JSName}
+import scala.scalajs.js.|
 
 @JSGlobalScope
 @js.native
@@ -58,9 +59,9 @@ trait Matcher[T] extends js.Object {
   def toBeUndefined(): js.Object = js.native
   def toContain(item: js.Any): js.Object = js.native
   def toContainEqual(item: js.Any): js.Object = js.native
-  def toEqual(value: js.Any): js.Object = js.native
-  def toHaveLength(number: js.Any): js.Object = js.native
-  def toMatch(regexpOrString: js.Any): js.Object = js.native
+  def toEqual(value: Any): js.Object = js.native
+  def toHaveLength(number: Int): js.Object = js.native
+  def toMatch(regexpOrString: String | js.RegExp): js.Object = js.native
   def toMatchObject(in: js.Any): js.Object = js.native
   def toHaveProperty(keyPath: String, value: js.Any = ???): js.Object =
     js.native
