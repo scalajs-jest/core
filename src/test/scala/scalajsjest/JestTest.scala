@@ -7,31 +7,34 @@ class JestTest extends JestSuite {
 
   val f = Future { 5 }
 
-  test("test") {
+  test("test", () => {
+    val x = 5
     expect(1 + 1).toBe(2)
-  }
+    expect(x).toBe(5)
+  })
 
-  test("test") {
+  test("test", () => {
     expect(1 - 1).toBe(0)
-  }
+  })
 
-  testSkip("skip") {
+  testSkip("skip", () => {
     expect(1 - 1).toBe(10)
-  }
+  })
 
-  test("assertions") {
+  test("assertions", () => {
     assertions(2)
     expect(2).toBe(2)
     expect(2).toBe(2)
-  }
+  })
 
-  testAsync("Async") {
+  testAsync("Async", () => {
     assertions(1)
     expectAsync(f).resolves.toBe(5)
-  }
+  })
 
-  test("Jest Object") {
+  test("Jest Object", () => {
     expect(Jest.isMockFunction(() => null)).toBeFalsy()
-  }
+
+  })
 
 }

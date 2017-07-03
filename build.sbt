@@ -1,6 +1,6 @@
 name := "core"
 
-//version := "2017.7.0-SNAPSHOT"
+version := "2017.7.0-SNAPSHOT"
 
 enablePlugins(ScalaJSPlugin)
 
@@ -23,6 +23,9 @@ scalacOptions ++= Seq(
 
 libraryDependencies ++= Seq(
   "org.scala-lang" % "scala-reflect" % scalaVersion.value % Provided)
+
+resolvers in Global += Resolver.bintrayRepo("scalacenter",
+                                            "sbt-maven-releases")
 
 //bintray
 resolvers += Resolver.jcenterRepo

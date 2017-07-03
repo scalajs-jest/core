@@ -5,13 +5,17 @@ import scala.reflect.macros.whitebox
 
 private[scalajsjest] object JestMacro {
 
-  def testMacroImpl(c: whitebox.Context)(name: c.Tree)(func: c.Tree): c.Tree = {
+  def testMacroImpl(c: whitebox.Context)(name: c.Tree, func: c.Tree): c.Tree = {
+
     import c.universe._
+
+    val f = TermName(c.freshName())
+
     q"""
       scalajsjest.JestGlobal.test(${c.internal.enclosingOwner.fullName
       .split("\\.")
       .init
-      .mkString(".")}+"."+$name,() => $func)
+      .mkString(".")}+"."+$name,$func)
       """
   }
 
@@ -26,14 +30,14 @@ private[scalajsjest] object JestMacro {
       """
   }
 
-  def testSkipMacroImpl(c: whitebox.Context)(name: c.Tree)(
-      func: c.Tree): c.Tree = {
+  def testSkipMacroImpl(c: whitebox.Context)(name: c.Tree,
+                                             func: c.Tree): c.Tree = {
     import c.universe._
     q"""
       scalajsjest.JestGlobal.test.skip(${c.internal.enclosingOwner.fullName
       .split("\\.")
       .init
-      .mkString(".")}+"."+$name,() => $func)
+      .mkString(".")}+"."+$name, $func)
       """
   }
 
