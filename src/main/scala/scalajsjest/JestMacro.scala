@@ -8,9 +8,6 @@ private[scalajsjest] object JestMacro {
   def testMacroImpl(c: whitebox.Context)(name: c.Tree, func: c.Tree): c.Tree = {
 
     import c.universe._
-
-    val f = TermName(c.freshName())
-
     q"""
       scalajsjest.JestGlobal.test(${c.internal.enclosingOwner.fullName
       .split("\\.")
@@ -19,14 +16,14 @@ private[scalajsjest] object JestMacro {
       """
   }
 
-  def testOnlyMacroImpl(c: whitebox.Context)(name: c.Tree)(
-      func: c.Tree): c.Tree = {
+  def testOnlyMacroImpl(c: whitebox.Context)(name: c.Tree,
+                                             func: c.Tree): c.Tree = {
     import c.universe._
     q"""
       scalajsjest.JestGlobal.test.only(${c.internal.enclosingOwner.fullName
       .split("\\.")
       .init
-      .mkString(".")}+"."+$name,() => $func)
+      .mkString(".")}+"."+$name,$func)
       """
   }
 

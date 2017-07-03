@@ -13,13 +13,13 @@ trait JestSuite {
   def testAsync(name: String, func: () => Any): Unit =
     macro JestMacro.testMacroImpl
 
-  def testOnly(name: String)(func: => Unit): Unit =
+  def testOnly(name: String, func: () => Unit): Unit =
     macro JestMacro.testOnlyMacroImpl
 
   def testSkip(name: String, func: () => Unit): Unit =
     macro JestMacro.testSkipMacroImpl
 
-  def testOnlyAsync(name: String)(func: => Any): Unit =
+  def testOnlyAsync(name: String, func: () => Any): Unit =
     macro JestMacro.testOnlyMacroImpl
 
 //  def testSkipAsync(name: String)(func: => Any): Unit =
