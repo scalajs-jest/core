@@ -56,7 +56,6 @@ private[scalajsjest] object JestMacro {
         })
     }
     allTestClasses(rootPackage)
-    println(s"CLasses : $result")
     q"""
         ..$result
       """
