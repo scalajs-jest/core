@@ -10,7 +10,19 @@ object JestGlobal extends js.Object {
 
   def test(str: String, function: js.Function0[Any]): Unit = js.native
 
+  def describe(str: String, function: js.Function0[Any]): Unit = js.native
+
+  def afterEach(function: js.Function0[Any]): Unit = js.native
+
+  def beforeEach(function: js.Function0[Any]): Unit = js.native
+
+  def beforeAll(function: js.Function0[Any]): Unit = js.native
+
+  def afterAll(function: js.Function0[Any]): Unit = js.native
+
   val test: JestTestObject = js.native
+
+  val describe: JestTestObject = js.native
 
   def expect[T](in: T): Matcher[T] = js.native
 
@@ -20,6 +32,10 @@ object JestGlobal extends js.Object {
   val expect: ExpectObject = js.native
 
 }
+
+
+
+
 @js.native
 trait ExpectObject extends js.Object {
 
@@ -62,7 +78,7 @@ trait Matcher[T] extends js.Object {
   def toEqual(value: Any): js.Object = js.native
   def toHaveLength(number: Int): js.Object = js.native
   def toMatch(regexpOrString: String | js.RegExp): js.Object = js.native
-  def toMatchObject(in: js.Any): js.Object = js.native
+  def toMatchObject(in: Any): js.Object = js.native
   def toHaveProperty(keyPath: String, value: js.Any = ???): js.Object =
     js.native
   def toMatchSnapshot(optStr: String = ???): js.Object = js.native

@@ -5,4 +5,4 @@ import scala.language.experimental.macros
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
 import scala.scalajs.js.JSConverters._
 
-trait JestSuite extends BaseSuite
+trait JestSuiteOnly extends BaseSuite

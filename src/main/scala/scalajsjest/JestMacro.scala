@@ -5,39 +5,6 @@ import scala.reflect.macros.whitebox
 
 private[scalajsjest] object JestMacro {
 
-  def testMacroImpl(c: whitebox.Context)(name: c.Tree, func: c.Tree): c.Tree = {
-
-    import c.universe._
-    q"""
-      scalajsjest.JestGlobal.test(${c.internal.enclosingOwner.fullName
-      .split("\\.")
-      .init
-      .mkString(".")}+"."+$name,$func)
-      """
-  }
-
-  def testOnlyMacroImpl(c: whitebox.Context)(name: c.Tree,
-                                             func: c.Tree): c.Tree = {
-    import c.universe._
-    q"""
-      scalajsjest.JestGlobal.test.only(${c.internal.enclosingOwner.fullName
-      .split("\\.")
-      .init
-      .mkString(".")}+"."+$name,$func)
-      """
-  }
-
-  def testSkipMacroImpl(c: whitebox.Context)(name: c.Tree,
-                                             func: c.Tree): c.Tree = {
-    import c.universe._
-    q"""
-      scalajsjest.JestGlobal.test.skip(${c.internal.enclosingOwner.fullName
-      .split("\\.")
-      .init
-      .mkString(".")}+"."+$name, $func)
-      """
-  }
-
   def runMacroImpl(c: whitebox.Context)(): c.Tree = {
     import c.universe._
     val rootPackage = c.internal.enclosingOwner.fullName.split("\\.").head
@@ -49,10 +16,32 @@ private[scalajsjest] object JestMacro {
         .decls
         .foreach(s => {
           if (s.isPackage) allTestClasses(s.fullName)
-          else if (s.isClass && !s.isAbstract && s.asClass.toType != typeOf[
-                     JestSuite] && s.asClass.toType <:< typeOf[JestSuite]) {
-            result :+= q"new ${s.asClass.toType}"
+          else if (s.isClass && !s.isAbstract) {
+
+            if(s.asClass.toType <:< typeOf[JestSuite]) {
+              result :+=
+                q"""
+                 JestGlobal.describe(${s.asClass.fullName.toString} ,() => {
+                   new ${s.asClass.toType}
+                 })
+              """
+            } else if(s.asClass.toType <:< typeOf[JestSuiteOnly]) {
+              result :+=
+                q"""
+                 JestGlobal.describe.only(${s.asClass.fullName.toString} ,() => {
+                   new ${s.asClass.toType}
+                 })
+              """
+            } else if(s.asClass.toType <:< typeOf[JestSuiteSkip]) {
+              result :+=
+                q"""
+                 JestGlobal.describe.skip(${s.asClass.fullName.toString} ,() => {
+                   new ${s.asClass.toType}
+                 })
+              """
+            }
           }
+
         })
     }
     allTestClasses(rootPackage)
