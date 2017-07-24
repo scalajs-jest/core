@@ -21,21 +21,21 @@ private[scalajsjest] object JestMacro {
             if(s.asClass.toType <:< typeOf[JestSuite]) {
               result :+=
                 q"""
-                 JestGlobal.describe(${s.asClass.fullName.toString} ,() => {
+                   scalajsjest.JestGlobal.describe(${s.asClass.fullName.toString} ,() => {
                    new ${s.asClass.toType}
                  })
               """
             } else if(s.asClass.toType <:< typeOf[JestSuiteOnly]) {
               result :+=
                 q"""
-                 JestGlobal.describe.only(${s.asClass.fullName.toString} ,() => {
+                   scalajsjest.JestGlobal.describe.only(${s.asClass.fullName.toString} ,() => {
                    new ${s.asClass.toType}
                  })
               """
             } else if(s.asClass.toType <:< typeOf[JestSuiteSkip]) {
               result :+=
                 q"""
-                 JestGlobal.describe.skip(${s.asClass.fullName.toString} ,() => {
+                   scalajsjest.JestGlobal.describe.skip(${s.asClass.fullName.toString} ,() => {
                    new ${s.asClass.toType}
                  })
               """
