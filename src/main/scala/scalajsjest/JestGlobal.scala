@@ -82,7 +82,8 @@ trait Matcher[T] extends js.Object {
   def toHaveProperty(keyPath: String, value: js.Any = ???): js.Object =
     js.native
   def toMatchSnapshot(optStr: String = ???): js.Object = js.native
-  def toThrow(error: Any): js.Object = js.native
+  def toThrow(error: Any = ???): js.Object = js.native
+  def toThrowError(error: Any = ???): js.Object = js.native
   def toThrowErrorMatchingSnapshot(): js.Object = js.native
   val not: Matcher[T] = js.native
 
