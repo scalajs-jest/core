@@ -44,6 +44,8 @@ publishArtifact in Test := false
 
 scalaJSUseMainModuleInitializer in Test := true
 
+scalaJSUseTestModuleInitializer in Test := false
+
 scalaJSLinkerConfig ~= (_.withModuleKind(ModuleKind.CommonJSModule))
 
 val TEST_FILE = s"./sjs.test.js"
